@@ -100,7 +100,7 @@ outlines:
     - what: rectangle
       fillet: 2
       where: true
-      size: [cx + 2, cy + 2]
+      size: [cx - 0.5, cy - 0.5]
   preview:
     - what: outline
       name: _board_outline
