@@ -100,7 +100,7 @@ outlines:
     - what: rectangle
       fillet: 2
       where: true
-      size: [1cx - 0.5, 1cy - 0.5]
+      size: [cx + 2, cy + 2]
   preview:
     - what: outline
       name: _board_outline
@@ -140,7 +140,7 @@ pcbs.left:
         shift: [22, 6.5]
         rotate: -90
       params:
-        orientation: "up"
+        orientation: up
 
     oled:
       what: oled
@@ -149,49 +149,63 @@ pcbs.left:
         SDA: P2
         SCL: P3
       where:
-        ref: supermini
-        shift: [22, 5]
-        rotate: 90
+        ref: main_inner_top
+        shift: [28, 5.5]
+        rotate: -90
+
+    switch:
+      what: slider
+      where:
+        ref: main_inner_bottom
+        shift: [30.5, 0]
+        rotate: -90
+      params:
+        from: pos
+        to: RAW
 
     bat_con:
       what: jstph
       where:
         ref: main_inner_bottom
-        shift: [21, -2]
+        shift: [22, -10]
         rotate: 180
       params:
+        side: "B"
+        pos: RAW
         neg: GND
 
     reset:
       what: button
       where:
         ref: main_inner_bottom
-        shift: [30, -6]
-        rotate: 90
+        shift: [22.1, 3]
       params:
+        side: "B"
         from: GND
         to: RST
 
-    front_text:
+    front_text: &text
       what: text
-      where:
+      where: &textWhere
         ref: main_pinky_bottom
         shift: [12, -7]
-      params:
+      params: &textParams
         text: Szottyos board
         justify: left
 
     back_text:
+      <<: *text
       what: text
       where:
-        ref: main_pinky_bottom
+        <<: *textWhere
         shift: [27, -7]
       params:
-        text: Szottyos board
-        layer: B.silks
+        <<: *textParams
+        layer: B.silkS
         justify: left mirror
 
     safe_text:
+      <<: *text
       what: keepout
       params:
         points:
