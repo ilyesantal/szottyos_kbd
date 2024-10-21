@@ -122,6 +122,16 @@ pcbs.left:
         from: "{{col_net}}"
         to: "{{colrow}}"
 
+    diode:
+      what: diode
+      where: true
+      params:
+        from: "{{colrow}}"
+        to: "{{row_net}}"
+      adjust:
+        shift: [-7.6, 1.6]
+        rotate: 90
+
     supermini:
       what: nice_nano
       where:
@@ -130,10 +140,21 @@ pcbs.left:
         shift: [22, 6.5]
         rotate: -90
       params:
-        orientation: up
+        orientation: "up"
+
+    oled:
+      what: oled
+      params:
+        side: "F"
+        SDA: P2
+        SCL: P3
+      where:
+        ref: supermini
+        shift: [22, 5]
+        rotate: 90
 
     bat_con:
-      what: jst-s2b-ph-kl
+      what: jstph
       where:
         ref: main_inner_bottom
         shift: [21, -2]
@@ -141,25 +162,15 @@ pcbs.left:
       params:
         neg: GND
 
-    diode:
-      what: sod-123w
-      where: true
-      params:
-        from: "{{name}}"
-        to: "{{row_net}}"
-      adjust:
-        shift: [-7.6, 1.6]
-        rotate: 90
-
-    button:
-      what: wuerth-434121025816
+    reset:
+      what: button
       where:
         ref: main_inner_bottom
         shift: [30, -6]
         rotate: 90
       params:
-        r1: RST
-        r2: GND
+        from: GND
+        to: RST
 
     front_text:
       what: text
