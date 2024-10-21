@@ -100,7 +100,7 @@ outlines:
     - what: rectangle
       fillet: 2
       where: true
-      size: [1cx - 0.5, 1cy - 0.5]
+      size: [cx - 0.5, cy - 0.5]
   preview:
     - what: outline
       name: _board_outline
@@ -122,6 +122,16 @@ pcbs.left:
         from: "{{col_net}}"
         to: "{{colrow}}"
 
+    diode:
+      what: diode
+      where: true
+      params:
+        from: "{{colrow}}"
+        to: "{{row_net}}"
+      adjust:
+        shift: [-7.6, 1.6]
+        rotate: 90
+
     supermini:
       what: nice_nano
       where:
@@ -132,55 +142,70 @@ pcbs.left:
       params:
         orientation: up
 
-    bat_con:
-      what: jst-s2b-ph-kl
+    oled:
+      what: oled
+      params:
+        side: "F"
+        SDA: P2
+        SCL: P3
+      where:
+        ref: main_inner_top
+        shift: [28, 5.5]
+        rotate: -90
+
+    switch:
+      what: slider
       where:
         ref: main_inner_bottom
-        shift: [21, -2]
+        shift: [30.5, 0]
+        rotate: -90
+      params:
+        from: pos
+        to: RAW
+
+    bat_con:
+      what: jstph
+      where:
+        ref: main_inner_bottom
+        shift: [22, -10]
         rotate: 180
       params:
+        side: "B"
+        pos: RAW
         neg: GND
 
-    diode:
-      what: sod-123w
-      where: true
-      params:
-        from: "{{name}}"
-        to: "{{row_net}}"
-      adjust:
-        shift: [-7.6, 1.6]
-        rotate: 90
-
-    button:
-      what: wuerth-434121025816
+    reset:
+      what: button
       where:
         ref: main_inner_bottom
-        shift: [30, -6]
-        rotate: 90
+        shift: [22.1, 3]
       params:
-        r1: RST
-        r2: GND
+        side: "B"
+        from: GND
+        to: RST
 
-    front_text:
+    front_text: &text
       what: text
-      where:
+      where: &textWhere
         ref: main_pinky_bottom
         shift: [12, -7]
-      params:
+      params: &textParams
         text: Szottyos board
         justify: left
 
     back_text:
+      <<: *text
       what: text
       where:
-        ref: main_pinky_bottom
+        <<: *textWhere
         shift: [27, -7]
       params:
-        text: Szottyos board
-        layer: B.silks
+        <<: *textParams
+        layer: B.silkS
         justify: left mirror
 
     safe_text:
+      <<: *text
       what: keepout
       params:
         points:
