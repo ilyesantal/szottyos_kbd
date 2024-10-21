@@ -52,6 +52,9 @@ points:
           col_net: P022
       rows:
         home.row_net: P104
+  mirror: &mirror
+    ref: main_inner_top
+    distance: 5cx
 outlines:
   _board_outline:
     - what: polygon
@@ -109,6 +112,62 @@ outlines:
         - ref: main_inner_bottom
           shift: [1.8cx, -0.6cy]
 
+  _board_outline_mirror:
+    - what: polygon
+      fillet: 2
+      points:
+        - ref: mirror_thumb_home_home
+          shift: [0.6cx, 0.6cy]
+        - ref: mirror_thumb_home_home
+          shift: [0.6cx, -0.6cy]
+        - ref: mirror_thumb_home_home
+          shift: [-0.4cx, -0.6cy]
+
+        - ref: mirror_thumb_inner_home
+          shift: [0.4cx, -0.6cy]
+        - ref: mirror_thumb_inner_home
+          shift: [-0.6cx, -0.6cy]
+
+        - ref: mirror_main_pinky_bottom
+          shift: [1.6cx, -0.6cy]
+        - ref: mirror_main_pinky_bottom
+          shift: [0.6cx, -0.6cy]
+        - ref: mirror_main_pinky_bottom
+          shift: [-0.6cx, -0.6cy]
+
+        - ref: mirror_main_pinky_top
+          shift: [-0.6cx, 0.6cy]
+        - ref: mirror_main_pinky_top
+          shift: [0.4cx, 0.6cy]
+
+        - ref: mirror_main_ring_top
+          shift: [-0.53cx, 0.6cy]
+        - ref: mirror_main_ring_top
+          shift: [0.4cx, 0.6cy]
+
+        - ref: mirror_main_middle_top
+          shift: [-0.5cx, 0.61cy]
+        - ref: mirror_main_middle_top
+          shift: [0.5cx, 0.6cy]
+
+        - ref: mirror_main_index_top
+          shift: [-0.4cx, 0.6cy]
+        - ref: mirror_main_index_top
+          shift: [0.5cx, 0.6cy]
+
+        - ref: mirror_main_inner_top
+          shift: [-0.4cx, 0.6cy]
+        - ref: mirror_main_inner_top
+          shift: [0.5cx, 0.6cy]
+
+        - ref: mirror_main_inner_top
+          shift: [0.6cx, 0.4cy]
+        - ref: mirror_main_inner_top
+          shift: [1.8cx, 0.4cy]
+
+        - ref: mirror_main_inner_bottom
+          shift: [1.8cx, -0.6cy]
+
   _keycap_outlines:
     - what: rectangle
       fillet: 2
@@ -119,8 +178,98 @@ outlines:
       name: _board_outline
       operation: stack
     - what: outline
+      name: _board_outline_mirror
+      operation: stack
+    - what: outline
       name: _keycap_outlines
       operation: stack
+
+pcbs.right:
+  outlines:
+    main.outline: _board_outline_mirror
+  footprints:
+    keyswitches:
+      where: true
+      what: choc
+      params:
+        hotswap: true
+        keycaps: true
+        reverse: false
+        from: "{{col_net}}"
+        to: "{{colrow}}"
+
+    diode:
+      what: sod-123w
+      where: true
+      params:
+        from: "{{colrow}}"
+        to: "{{row_net}}"
+      adjust:
+        shift: [-7.8, -2.5]
+        rotate: -90
+
+    supermini:
+      what: nice_nano
+      where:
+        ref: mirror_main_inner_home
+      adjust:
+        shift: [22, 6.5]
+        rotate: 90
+      params:
+        orientation: up
+
+    oled:
+      what: oled
+      params:
+        side: "F"
+        SDA: P031
+        SCL: P029
+      where:
+        ref: mirror_main_inner_top
+        shift: [16, 5.5]
+        rotate: 90
+
+    switch:
+      what: slider
+      where:
+        ref: mirror_main_inner_bottom
+        shift: [30.5, 0]
+        rotate: -90
+      params:
+        side: "B"
+        from: pos
+        to: RAW
+
+    bat_con:
+      what: jstph
+      where:
+        ref: mirror_main_inner_bottom
+        shift: [22, -10]
+        rotate: -180
+      params:
+        side: "B"
+        pos: pos
+        neg: GND
+
+    reset:
+      what: button
+      where:
+        ref: mirror_main_inner_bottom
+        shift: [16.5, 3]
+      params:
+        side: "B"
+        from: GND
+        to: RST
+
+    front_text: &text
+      what: text
+      where: &textWhere
+        ref: mirror_main_pinky_bottom
+        shift: [22, -7]
+      params: &textParams
+        text: szottyos_kbd\nversion 1.0.0
+        justify: left
+
 pcbs.left:
   outlines:
     main.outline: _board_outline
