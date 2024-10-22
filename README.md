@@ -2,6 +2,11 @@
 ## Prerequisites
 
 * Node
+* Docker
+* Soldering tools
+## Bill of Materials
+* <a href="https://docs.google.com/spreadsheets/d/14zfck-Etdlp5-raBP9K-4Nxd6nClEs_cWekAMFLIVm4/edit?usp=sharing" target="_blank">Link to BOM</a>
+
 ## Getting Started
 
 ```bash
