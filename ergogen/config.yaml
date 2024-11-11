@@ -168,6 +168,32 @@ outlines:
         - ref: mirror_main_inner_bottom
           shift: [1.8cx, -0.6cy]
 
+  _switch_outlines_left:
+    - what: rectangle
+      where: /^main_|^thumb_/
+      size: [14, 14]
+      
+  _switch_outlines_right:
+    - what: rectangle
+      where: /^mirror_main_|^mirror_thumb_/
+      size: [14, 14]
+
+  case_left:
+    - what: outline
+      name: _board_outline
+      operation: stack
+    - what: outline
+      name: _switch_outlines_left
+      operation: stack
+
+  case_right:
+    - what: outline
+      name: _board_outline_mirror
+      operation: stack
+    - what: outline
+      name: _switch_outlines_right
+      operation: stack
+
   _keycap_outlines:
     - what: rectangle
       fillet: 2
@@ -355,3 +381,10 @@ pcbs.left:
       params: &textParams
         text: szottyos_kbd\nversion 1.0.0
         justify: left
+
+
+cases:
+  left_case:
+    - name: case_left
+  right_case:
+    - name: case_right

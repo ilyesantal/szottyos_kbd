@@ -1,0 +1,5 @@
+config SHIELD_SZOTTYOS_LEFT
+    def_bool $(shields_list_contains,szottyos_left)
+
+config SHIELD_SZOTTYOS_RIGHT
+    def_bool $(shields_list_contains,szottyos_right)

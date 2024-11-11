@@ -1,0 +1,12 @@
+file_format: "1"
+id: szottyos
+name: Szottyos
+type: shield
+url: https://github.com/ilyesantal/szottyos_kbd/
+requires: [nice_nano_v2]
+features:
+    - keys
+    - bluetooth
+siblings:
+    - szottyos_left
+    - szottyos_right
